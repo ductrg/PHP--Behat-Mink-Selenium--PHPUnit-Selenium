@@ -8,7 +8,7 @@ Feature: Search successfully action
 
   @javascript
   Scenario: search successfully
-    Given I am on "/" and maximize window
+    Given I am on "/" and make window larger
     When I fill in "q" with "wikipedia"
     And I wait for page loading
     And I press "Search"

@@ -101,15 +101,27 @@ class FeatureContext extends RawMinkContext
     }
 
     /**
-     * Opens specified page and maximize window.
+     * Opens specified page and make window larger.
      *
-     * @Given /^(?:|I )am on "(?P<page>[^"]+)" and maximize window$/
-     * @When /^(?:|I )go to "(?P<page>[^"]+)" and maximize window$/
+     * @Given /^(?:|I )am on "(?P<page>[^"]+)" and make window larger$/
+     * @When /^(?:|I )go to "(?P<page>[^"]+)" and make window larger$/
      */
     public function navigate($page)
     {
         $this->visitPath($page);
         $this->getSession()->resizeWindow($this->browserWidth, $this->browserHeight, 'current');
+    }
+
+    /**
+     * Opens specified page and maximize window.
+     *
+     * @Given /^(?:|I )am on "(?P<page>[^"]+)" and maximize window$/
+     * @When /^(?:|I )go to "(?P<page>[^"]+)" and maximize window$/
+     */
+    public function navigateMax($page)
+    {
+        $this->visitPath($page);
+        $this->getSession()->maximizeWindow();
     }
 
     /**
