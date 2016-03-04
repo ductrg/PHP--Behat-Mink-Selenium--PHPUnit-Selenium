@@ -1,0 +1,55 @@
+default:
+  extensions:
+    Behat\MinkExtension:
+      goutte: ~
+      base_url: http://www.google.com
+      selenium2:
+        browser: chrome
+        capabilities: {"browserName": "chrome", "browser": "chrome"}
+  gherkin:
+    filters:
+      tags: ~@wip
+  suites:
+      default:
+        contexts:
+          - FeatureContext:
+                browserWidth : 1920
+                browserHeight : 1080
+          - GoogleContext:
+                browserWidth : 1920
+                browserHeight : 1080
+#    emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
+#        name: html
+#        renderer: Twig,Behat2
+#        file_name: Index
+#        print_args: true
+#        print_outp: true
+#        loop_break: true
+#  formatters: 
+#    html:
+#      output_path: %paths.base%/build/html/behat				
+firefox:
+  extensions:
+    Behat\MinkExtension:
+      goutte: ~
+      base_url: http://www.google.com
+      selenium2:
+        browser: firefox
+#    emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
+#        name: html
+#        renderer: Twig,Behat2
+#        file_name: Index
+#        print_args: true
+#        print_outp: true
+#        loop_break: true
+#  formatters:
+#    html:
+#      output_path: %paths.base%/build/html/behat
+IE:
+  extensions:
+    Behat\MinkExtension:
+      goutte: ~
+      base_url: http://www.google.com
+      selenium2:
+        browser: internet explorer
+        capabilities: {"browserName": "internet explorer", "browser": "internet explorer"}
