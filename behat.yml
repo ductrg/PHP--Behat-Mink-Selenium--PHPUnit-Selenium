@@ -18,6 +18,9 @@ default:
           - GoogleContext:
                 browserWidth : 1920
                 browserHeight : 1080
+          - WikipediaContext:
+                browserWidth : 1920
+                browserHeight : 1080
 #    emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
 #        name: html
 #        renderer: Twig,Behat2

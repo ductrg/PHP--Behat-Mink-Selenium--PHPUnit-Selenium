@@ -1,11 +1,11 @@
 <?php
 
-use Behat\MinkExtension\Context\RawMinkContext;
+use Behat\MinkExtension\Context\MinkContext;
 
 /**
  * Defines application features from the specific context.
  */
-class FeatureContext extends RawMinkContext
+class FeatureContext extends MinkContext
 {
     const CIID = 'TRAVIS_BUILD_ID';
     const CIBRANCH = 'TRAVIS_BRANCH';
