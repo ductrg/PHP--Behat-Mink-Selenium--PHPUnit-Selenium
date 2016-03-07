@@ -34,25 +34,12 @@ default:
 firefox:
   extensions:
     Behat\MinkExtension:
-      goutte: ~
-      base_url: http://www.google.com
       selenium2:
         browser: firefox
-#    emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
-#        name: html
-#        renderer: Twig,Behat2
-#        file_name: Index
-#        print_args: true
-#        print_outp: true
-#        loop_break: true
-#  formatters:
-#    html:
-#      output_path: %paths.base%/build/html/behat
+        capabilities: {"browserName": "firefox", "browser": "firefox"}
 IE:
   extensions:
     Behat\MinkExtension:
-      goutte: ~
-      base_url: http://www.google.com
       selenium2:
         browser: internet explorer
         capabilities: {"browserName": "internet explorer", "browser": "internet explorer"}
