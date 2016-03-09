@@ -4,3 +4,5 @@
 /vendor/
 *_bk*
 /.idea*
+/phpunit-conf/build/
+SeleniumTests/screenshots/
