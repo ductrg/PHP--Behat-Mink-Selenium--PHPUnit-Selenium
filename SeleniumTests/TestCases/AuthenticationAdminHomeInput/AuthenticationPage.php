@@ -9,7 +9,6 @@ namespace TestCases\AuthenticationAdminHomeInput;
 
 class AuthenticationPage
 {
-    protected $header = null;
     protected $errorMessageOfWrongAuthentication = null;
     protected $usernameInput = null;
     protected $passwordInput = null;
@@ -19,24 +18,15 @@ class AuthenticationPage
     public function __construct($test)
     {
         try {
-            $test->url('/login');
-            $this->header = "//h3";
-            $this->errorMessageOfWrongAuthentication = ".errors.login-errors";
-            $this->usernameInput = $test->byName('_username');
-            $this->passwordInput = $test->byName('_password');
-            $this->login = $test->byName('login');
+            $test->url('/php/php_login_example.htm');
             $this->test = $test;
+            $this->test->switchIframe(1);
+            $this->errorMessageOfWrongAuthentication = ".form-signin-heading";
+            $this->usernameInput = $test->byName('username');
+            $this->passwordInput = $test->byName('password');
+            $this->login = $test->byName('login');
         } catch (\PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
             throw new \Exception("\n\nEither user doesn't stay at Authentication page or the expected element is not there. Take a look at screenshot.\n\n" . $e->getMessage());
-        }
-    }
-
-    public function assertPageHeaderIs($text)
-    {
-        try {
-            $this->test->assertEquals($text, $this->test->byXPath($this->header)->text());
-        } catch (\PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
-            throw new \Exception("\n\nEither user doesn't stay at Authentication page or the expected header of the page is not there. Take a look at screenshot.\n\n" . $e->getMessage());
         }
     }
 

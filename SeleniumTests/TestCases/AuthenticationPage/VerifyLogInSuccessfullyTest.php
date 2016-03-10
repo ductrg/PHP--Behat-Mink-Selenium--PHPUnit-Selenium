@@ -17,11 +17,13 @@ class VerifyLogInSuccessfullyTest extends BaseTests
         $page = new AuthenticationPage($this);
         $welcomePage = $page->clearUsername()
             ->clearPassword()
-            ->inputUsername('admin')
-            ->inputPassword('123456')
+            ->inputUsername('tutorialspoint')
+            ->inputPassword('1234')
             ->submitExpectedOK();
 
-        // Verify header of log in page is not present
-        $welcomePage->assertLogInHeaderNotPresents('Please login');
+        $welcomePage->assertPageHeaderIs('Enter Username and Password');
+
+        // Verify header of log in page is present
+        $welcomePage->assertLogInSuccessfullyText('You have entered valid use name and password');
     }
 }

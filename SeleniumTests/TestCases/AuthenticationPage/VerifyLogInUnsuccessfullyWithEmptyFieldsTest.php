@@ -19,10 +19,7 @@ class VerifyLogInUnsuccessfullyWithEmptyFieldsTest extends BaseTests
             ->clearPassword()
             ->submitExpectedNotOK();
 
-        // Verify there is error message of empty field
-        $authenticationPage->assertErrorMessageOfWrongAuthentication('Bad credentials');
-
-        // Verify header of log in page
-        $authenticationPage->assertPageHeaderIs('Please login');
+        // Verify there is error message of wrong authentication
+        $this->assertTextNotPresents("//h4[text()='Wrong username or password']", "XPATH");
     }
 }

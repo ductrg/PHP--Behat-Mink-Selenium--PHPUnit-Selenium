@@ -151,19 +151,28 @@ class BaseTests extends \PHPUnit_Extensions_Selenium2TestCase
     // Do log in pre-requisition
     public function logInSuccessfully()
     {
-        $this->url('/login');
+        $this->url('/php/php_login_example.htm');
         $this->prepareSession()->currentWindow()->size(array('width' => 1920, 'height' => 1080));
 
+        // Switch to iframe of login form
+        $this->switchIframe(1);
+
         // Clear existing data
-        $usernameInput = $this->byName('_username');
+        $usernameInput = $this->byName('username');
         $usernameInput->clear();
-        $passwordInput = $this->byName('_password');
+        $passwordInput = $this->byName('password');
         $passwordInput->clear();
 
         // Input valid credentials and submit
-        $this->byName('_username')->value(PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_TESTS_USERNAME);
-        $this->byName('_password')->value(PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_TESTS_PASSWORD);
+        $this->byName('username')->value(PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_TESTS_USERNAME);
+        $this->byName('password')->value(PHPUNIT_TESTSUITE_EXTENSION_SELENIUM_TESTS_PASSWORD);
         $this->byName('login')->click();
+    }
+
+    // Switch to an iframe
+    public function switchIframe($element)
+    {
+        $this->frame($element);
     }
 
     // Override PHPUnit_Extensions_Selenium2TestCase::onNotSuccessfulTest

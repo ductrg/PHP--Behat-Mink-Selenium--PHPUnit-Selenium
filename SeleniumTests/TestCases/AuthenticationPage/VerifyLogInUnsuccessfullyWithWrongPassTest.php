@@ -17,14 +17,11 @@ class VerifyLogInUnsuccessfullyWithWrongPassTest extends BaseTests
         $page = new AuthenticationPage($this);
         $authenticationPage = $page->clearUsername()
             ->clearPassword()
-            ->inputUsername('admin')
-            ->inputPassword('1234567')
+            ->inputUsername('tutorialspoint')
+            ->inputPassword('12345')
             ->submitExpectedNotOK();
 
         // Verify there is error message of wrong authentication
-        $authenticationPage->assertErrorMessageOfWrongAuthentication('Bad credentials');
-
-        // Verify header of log in page
-        $authenticationPage->assertPageHeaderIs('Please login');
+        $authenticationPage->assertErrorMessageOfWrongAuthentication('Wrong username or password');
     }
 }
