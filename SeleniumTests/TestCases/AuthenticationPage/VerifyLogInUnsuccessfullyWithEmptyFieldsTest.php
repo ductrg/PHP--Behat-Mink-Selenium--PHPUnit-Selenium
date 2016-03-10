@@ -1,8 +1,8 @@
 <?php
-//namespace SeleniumTests\TestCases\AuthenticationPage;
-//
-//use SeleniumTests\TestCases\AuthenticationAdminHomeInput\AuthenticationPage;
-//use SeleniumTests\BaseTests;
+namespace TestCases\AuthenticationPage;
+
+use TestCases\AuthenticationAdminHomeInput\AuthenticationPage;
+use src\BaseTests;
 
 /* 
  * To change this license header, choose License Headers in Project Properties.

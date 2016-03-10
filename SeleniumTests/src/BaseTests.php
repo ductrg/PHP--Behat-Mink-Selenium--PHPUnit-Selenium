@@ -1,5 +1,5 @@
 <?php
-//namespace SeleniumTests;
+namespace src;
 
 /*        
  * To change this license header, choose License Headers in Project Properties.
@@ -172,7 +172,7 @@ class BaseTests extends \PHPUnit_Extensions_Selenium2TestCase
         // Capture screenshot whenever a test is failed
         $fileData = $this->currentScreenshot();
         $class = explode("\\", get_class($this));
-        $file = __DIR__ . '/screenshots/' . date('h-i-s,j-m-y', time())
+        $file = __DIR__ . '/../screenshots/' . date('h-i-s,j-m-y', time())
             . '_' . $class[count($class) - 1] . '_' . $this->getBrowser() . '.png';
         file_put_contents($file, $fileData);
 

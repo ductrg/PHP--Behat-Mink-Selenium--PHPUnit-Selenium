@@ -1,5 +1,5 @@
 <?php
-//namespace SeleniumTests\TestCases\AuthenticationAdminHomeInput;
+namespace TestCases\AuthenticationAdminHomeInput;
 
 /* 
  * To change this license header, choose License Headers in Project Properties.
