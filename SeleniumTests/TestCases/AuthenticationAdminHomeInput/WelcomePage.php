@@ -40,7 +40,7 @@ class WelcomePage
         $this->test->assertEquals($text, $this->userName->text());
     }
 
-    public function replace($text)
+    private function replace($text)
     {
         return str_replace('@value@', $text, $this->logInHeader);
     }
