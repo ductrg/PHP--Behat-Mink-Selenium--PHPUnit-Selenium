@@ -10,6 +10,8 @@ namespace TestCases\AuthenticationAdminHomeInput;
 class AuthenticationPage
 {
     protected $errorMessageOfWrongAuthentication = null;
+    protected $errorMessage = null;
+    protected $logInSuccessfulMessage = null;
     protected $usernameInput = null;
     protected $passwordInput = null;
     protected $login = null;
@@ -22,6 +24,8 @@ class AuthenticationPage
             $this->test = $test;
             $this->test->switchIframe(1);
             $this->errorMessageOfWrongAuthentication = ".form-signin-heading";
+            $this->errorMessage = "//h4[text()='@value']";
+            $this->logInSuccessfulMessage = "//div[normalize-space()='@value@']";
             $this->usernameInput = $test->byName('username');
             $this->passwordInput = $test->byName('password');
             $this->login = $test->byName('login');
@@ -73,5 +77,22 @@ class AuthenticationPage
         } catch (\PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {
             throw new \Exception("\n\nEither user doesn't stay at Authentication page or the expected error message of the page is not there. Take a look at screenshot.\n\n" . $e->getMessage());
         }
+    }
+
+    private function replace($text, $message)
+    {
+        return str_replace('@value@', $text, $message);
+    }
+
+    public function assertLogInSuccessfullyTextIsNotPresent($text)
+    {
+        $valueLogInSuccessfulMessage = $this->replace($text, $this->logInSuccessfulMessage);
+        $this->test->assertTextNotPresents($valueLogInSuccessfulMessage, 'XPATH');
+    }
+
+    public function assertErrorMessageIsNotPresent($text)
+    {
+        $valueErrorMessage = $this->replace($text, $this->errorMessage);
+        $this->test->assertTextNotPresents($valueErrorMessage, 'XPATH');
     }
 }

@@ -21,6 +21,7 @@ class VerifyLogInSuccessfullyTest extends BaseTests
             ->inputPassword('1234')
             ->submitExpectedOK();
 
+        // Verify page header
         $welcomePage->assertPageHeaderIs('Enter Username and Password');
 
         // Verify header of log in page is present

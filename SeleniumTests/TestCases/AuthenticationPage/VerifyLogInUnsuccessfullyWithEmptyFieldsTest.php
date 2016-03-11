@@ -19,7 +19,7 @@ class VerifyLogInUnsuccessfullyWithEmptyFieldsTest extends BaseTests
             ->clearPassword()
             ->submitExpectedNotOK();
 
-        // Verify there is error message of wrong authentication
-        $this->assertTextNotPresents("//h4[text()='Wrong username or password']", "XPATH");
+        // Verify there is no error message of wrong authentication
+        $authenticationPage->assertErrorMessageIsNotPresent('Wrong username or password');
     }
 }

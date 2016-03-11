@@ -17,11 +17,11 @@ class VerifyLogOutSuccessfullyTest extends BaseTests
         // Do login
         $this->logInSuccessfully();
 
-        //Do logout
+        // Do logout
         $page = new WelcomePage($this);
         $welcomePage = $page->logOutExpectedOK();
 
-        // Verify header of log in page
-        $this->assertTextNotPresents("//div[normalize-space()='You have entered valid use name and password']", "XPATH");
+        // Verify log in successfully message is no longer shown
+        $welcomePage->assertLogInSuccessfullyTextIsNotPresent('You have entered valid use name and password');
     }
 }

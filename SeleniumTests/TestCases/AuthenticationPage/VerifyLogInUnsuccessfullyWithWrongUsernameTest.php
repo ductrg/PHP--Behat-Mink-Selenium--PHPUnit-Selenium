@@ -21,7 +21,7 @@ class VerifyLogInUnsuccessfullyWithWrongUsernameTest extends BaseTests
             ->inputPassword('1234')
             ->submitExpectedNotOK();
 
-        // Verify there is no error message of empty field
+        // Verify there is error message of wrong authentication
         $authenticationPage->assertErrorMessageOfWrongAuthentication('Wrong username or password');
     }
 }
