@@ -1,0 +1,17 @@
+language: php
+php:
+- 5.5
+
+branches:
+  only:
+    - master
+    - phpu-sample
+
+before_script:
+- composer install
+- sh start-sele.sh
+- bin/behat --init
+
+script:
+- bin/phpunit -c phpunit-conf
+- bin/behat -p firefox
