@@ -12,9 +12,9 @@ Feature: Search successfully action
     When I fill in "q" with "wikipedia"
     And I wait for page loading
     And I press "Search"
-    And I wait for "2" seconds
+    And I wait for "1" seconds
     Then I should be on "#q=wikipedia"
-    And I should see "Wiki - Wikipedia, the free encyclopedia"
+    And I should see "Wikipedia - Wikipedia, the free encyclopedia"
 
   @javascript
   Scenario: search successfully (high level scenario)

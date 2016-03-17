@@ -51,6 +51,6 @@ class GoogleContext extends RawMinkContext
     public function checkGoogleSearchResult()
     {
         $this->assertSession()->addressEquals($this->locatePath('#q=wikipedia'));
-        $this->assertSession()->pageTextContains('Wiki - Wikipedia, the free encyclopedia');
+        $this->assertSession()->pageTextContains('Wikipedia - Wikipedia, the free encyclopedia');
     }
 }
