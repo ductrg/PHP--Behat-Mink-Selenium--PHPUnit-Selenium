@@ -1,0 +1,20 @@
+language: php
+php:
+- 5.5
+
+branches:
+  only:
+    - master
+    - phpu-sample
+
+before_script:
+- composer install
+- sudo wget "http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.0.jar"
+- sudo nohup Xvfb :40 -ac &
+- export DISPLAY=:40
+- java -jar selenium-server-standalone-2.53.0.jar
+- bin/behat --init
+
+script:
+- bin/phpunit -c phpunit-conf
+- bin/behat -p firefox
