@@ -11,6 +11,10 @@ before_script:
 - composer install
 - sh start-sele.sh
 - bin/behat --init
+- printenv TRAVIS_BUILD_ID
+- printenv TRAVIS_BUILD_NUMBER
+- printenv TRAVIS_JOB_ID
+- printenv TRAVIS_JOB_NUMBER
 
 script:
 - bin/phpunit -c phpunit-conf
