@@ -41,7 +41,7 @@ class GoogleContext extends RawMinkContext
     {
         $this->getSession()->getPage()->fillField('q', 'wikipedia');
         $this->getSession()->getPage()->pressButton('Search');
-        $this->FeatureContext->wait('2');
+        $this->FeatureContext->wait('1');
     }
 
     /**
