@@ -46,7 +46,7 @@ class BaseTests extends \PHPUnit_Extensions_Selenium2TestCase
 
         //if ENV available
         if (!empty($envSeleniumUrl)) {
-            //Allow override $envSeleniumUrl by environment
+            //Allow override $seleniumUrl by environment
             $seleniumUrl = $envSeleniumUrl;
         }
 

@@ -7,11 +7,11 @@ use Behat\MinkExtension\Context\MinkContext;
  */
 class FeatureContext extends MinkContext
 {
-    const CIID = 'TRAVIS_BUILD_ID';
     const CIBRANCH = 'TRAVIS_BRANCH';
-    const CIBUILDNUM = 'TRAVIS_BUILD_NUMBER';
 
     static private $randomCharacter = null;
+    static private $randomName = null;
+    static private $randomMail = null;
 
     public function __construct($browserWidth, $browserHeight)
     {
@@ -225,16 +225,26 @@ class FeatureContext extends MinkContext
     protected function caseFieldRandom($value, $number)
     {
         if (strstr($value, 'random name with prefix ')) {
-            $value = str_replace('random name with prefix ', "", $value) . $number;
+            static::$randomName = str_replace('random name with prefix ', "", $value) . $number . $this->doRandom();
+            return static::$randomName;
+
+        } else if (strstr($value, 'random email with prefix ')) {
+            static::$randomMail = str_replace('random email with prefix ', "", $value) . $number . $this->doRandom() . "@test.net";
+            return static::$randomMail;
+
+        } else if (strstr($value, 'random 3 capital characters')) {
+            static::$randomCharacter = $this->doRandom();
+            return static::$randomCharacter;
+
+        } else {
+            throw new \InvalidArgumentException(sprintf('This random text "%s" is not supported', $value));
         }
-        if (strstr($value, 'random email with prefix ')) {
-            $value = str_replace('random email with prefix ', "", $value) . $number . "@test.net";
-        }
-        if (strstr($value, 'random 3 capital characters')) {
-            static::$randomCharacter = substr(str_shuffle("ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 3);
-            $value = static::$randomCharacter;
-        }
-        return $value;
+    }
+
+    public function doRandom()
+    {
+        $string = substr(str_shuffle("ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 3);
+        return $string;
     }
 
     /**
@@ -248,9 +258,9 @@ class FeatureContext extends MinkContext
     }
 
     /**
-     * Checks, that page contain specified text generated randomly base on fillFieldRandom.
+     * Check that page contain specified text generated randomly base on fillFieldRandom.
      *  Note: to use per time run , for TRAVIS only. Can not use between different time run.
-     * @Then /^(?:|I )should see that random text "(?P<value>(?:[^"]|\\")*)"$/
+     * @Then /^(?:|I )should see that random "(?P<value>(?:[^"]|\\")*)"$/
      */
     public function assertPageContainsRandomText($value)
     {
@@ -259,18 +269,20 @@ class FeatureContext extends MinkContext
 
     protected function assertRandomText($type, $value)
     {
-        $value = $value . $this->doJoinVariable();
+        if (strstr($value, 'name') && $type == 'doesntContain') {
+            $this->assertSession()->pageTextNotContains($this->DoFixStepArgument(static::$randomName));
 
-        if (strstr($value, 'with prefix ') && $type == 'doesntContain') {
-            $value = str_replace('with prefix ', "", $value);
-            $this->assertSession()->pageTextNotContains($this->DoFixStepArgument($value));
+        } elseif (strstr($value, 'mail') && $type == 'doesntContain') {
+            $this->assertSession()->pageTextNotContains($this->DoFixStepArgument(static::$randomMail));
 
         } elseif (strstr($value, '3 capital characters') && $type == 'doesntContain') {
             $this->assertSession()->pageTextNotContains($this->DoFixStepArgument(static::$randomCharacter));
 
-        } elseif (strstr($value, 'with prefix ') && $type == 'contain') {
-            $value = str_replace('with prefix ', "", $value);
-            $this->assertSession()->pageTextContains($this->DoFixStepArgument($value));
+        } elseif (strstr($value, 'name') && $type == 'contain') {
+            $this->assertSession()->pageTextContains($this->DoFixStepArgument(static::$randomName));
+
+        } elseif (strstr($value, 'mail') && $type == 'contain') {
+            $this->assertSession()->pageTextContains($this->DoFixStepArgument(static::$randomMail));
 
         } elseif (strstr($value, '3 capital characters') && $type == 'contain') {
             $this->assertSession()->pageTextContains($this->DoFixStepArgument(static::$randomCharacter));
@@ -281,9 +293,9 @@ class FeatureContext extends MinkContext
     }
 
     /**
-     * Checks, that page doesn't contain specified text generated randomly base on fillFieldRandom.
+     * Check that page doesn't contain specified text generated randomly base on fillFieldRandom.
      *  Note: to use per time run , for TRAVIS only. Can not use between different time run.
-     * @Then /^(?:|I )should not see that random text "(?P<value>(?:[^"]|\\")*)"$/
+     * @Then /^(?:|I )should not see that random "(?P<value>(?:[^"]|\\")*)"$/
      */
     public function assertPageNotContainsRandomText($value)
     {
@@ -312,7 +324,7 @@ JS;
 
     protected function doJoinVariable()
     {
-        $number = getenv(static::CIBRANCH) . getenv(static::CIBUILDNUM) . getenv(static::CIID);
+        $number = getenv(static::CIBRANCH);
         if (empty($number)) {
             $number = time();
         }
