@@ -24,4 +24,4 @@ before_script:
 
 script:
 - bin/phpunit -c phpunit-conf
-- bin/behat
+- ant behat
