@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="test-system" default="full-build">
+    <!-- By default, we assume all tools to be on the $PATH -->
+    <property name="workspace" value="${basedir}"/>
+    <property name="sourcedir" value="${basedir}/src"/>
+    <property name="builddir" value="${workspace}/app/build"/>
+    <property name="bin" value="${workspace}/bin"/>
+
+    <property name="phpunit" value="${bin}/phpunit"/>
+    <property name="behat" value="${bin}/behat"/>
+
+    <target name="full-build"
+            depends="phpunit,behat"
+            description="run both PHPUnit tests and Behat tests"/>
+
+    <target name="phpunit">
+        <exec executable="${phpunit}" failonerror="true" taskname="phpunit">
+            <arg line="-c phpunit-conf"/>
+        </exec>
+    </target>
+
+    <target name="behat">
+        <!--<delete dir="${basedir}/report"/>-->
+        <!--<mkdir dir="${basedir}/report"/>-->
+        <parallel>
+            <antcall target="default"></antcall>
+            <antcall target="firefox"></antcall>
+        </parallel>
+    </target>
+    <target name="default">
+        <exec dir="${basedir}" executable="${behat}" failonerror="true" taskname="behat">
+        </exec>
+    </target>
+    <target name="firefox">
+        <exec dir="${basedir}" executable="${behat}" failonerror="true" taskname="behat">
+            <arg line="-p firefox"/>
+            <!--<arg line= "-f html &#45;&#45;out report/firefox.html -p firefox"/>-->
+        </exec>
+    </target>
+
+    <!--<target name="vendors" description="Update vendors">-->
+    <!--<exec executable="php" failonerror="true">-->
+    <!--<arg value="composer.phar" />-->
+    <!--<arg value="install" />-->
+    <!--</exec>-->
+    <!--</target>-->
+</project>
+

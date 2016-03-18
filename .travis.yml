@@ -2,6 +2,16 @@ language: php
 php:
 - 5.5
 
+before_install:
+- export CHROME_BIN=/usr/bin/google-chrome
+- sudo apt-get update
+- sudo apt-get install -y libappindicator1 fonts-liberation
+- wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+- sudo dpkg -i google-chrome*.deb
+- sudo apt-get install firefox
+- google-chrome --product-version
+- firefox -v
+
 branches:
   only:
     - master
@@ -14,4 +24,6 @@ before_script:
 
 script:
 - bin/phpunit -c phpunit-conf
+- ant behat
+- bin/behat
 - bin/behat -p firefox
