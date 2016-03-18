@@ -25,3 +25,5 @@ before_script:
 script:
 - bin/phpunit -c phpunit-conf
 - ant behat
+- bin/behat
+- bin/behat -p firefox
