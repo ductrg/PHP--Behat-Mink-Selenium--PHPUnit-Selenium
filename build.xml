@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="test-system" default="full-build">
-    <!-- By default, we assume all tools to be on the $PATH -->
-    <property name="workspace" value="${basedir}"/>
-    <property name="sourcedir" value="${basedir}/src"/>
-    <property name="builddir" value="${workspace}/app/build"/>
-    <property name="bin" value="${workspace}/bin"/>
-
+    <property name="bin" value="${basedir}/bin"/>
     <property name="phpunit" value="${bin}/phpunit"/>
     <property name="behat" value="${bin}/behat"/>
 
@@ -14,7 +9,7 @@
             description="run both PHPUnit tests and Behat tests"/>
 
     <target name="phpunit">
-        <exec executable="${phpunit}" failonerror="true" taskname="phpunit">
+        <exec executable="${phpunit}" taskname="phpunit">
             <arg line="-c phpunit-conf"/>
         </exec>
     </target>
@@ -26,13 +21,25 @@
             <antcall target="default"></antcall>
             <antcall target="firefox"></antcall>
         </parallel>
+        <loadfile property="chrome" srcfile="${basedir}/chrome.log"/>
+        <loadfile property="firefox" srcfile="${basedir}/firefox.log"/>
+        <echo>
+---------------------------
+        Running on chrome:
+${chrome}
+---------------------------
+        Running on firefox:
+${firefox}
+---------------------------
+        </echo>
     </target>
+
     <target name="default">
-        <exec dir="${basedir}" executable="${behat}" failonerror="true" taskname="behat">
+        <exec executable="${behat}" taskname="behat" output="chrome.log">
         </exec>
     </target>
     <target name="firefox">
-        <exec dir="${basedir}" executable="${behat}" failonerror="true" taskname="behat">
+        <exec executable="${behat}" taskname="behat" output="firefox.log">
             <arg line="-p firefox"/>
             <!--<arg line= "-f html &#45;&#45;out report/firefox.html -p firefox"/>-->
         </exec>
