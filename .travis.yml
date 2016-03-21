@@ -23,7 +23,7 @@ before_script:
 - bin/behat --init
 
 script:
-- ant $ANT_ARGS full-build
+- ant $ANT_ARGS $ANT_ARGS_VALUE full-build
 - bin/phpunit -c phpunit-conf
 - bin/behat
 - bin/behat -p firefox
