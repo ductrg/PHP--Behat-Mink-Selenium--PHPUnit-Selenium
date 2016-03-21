@@ -25,6 +25,6 @@ class VerifyLogInSuccessfullyTest extends BaseTests
         $welcomePage->assertPageHeaderIs('Enter Username and Password');
 
         // Verify header of log in page is present
-        $welcomePage->assertLogInSuccessfullyText('You have enter1ed valid use name and password');
+        $welcomePage->assertLogInSuccessfullyText('You have entered valid use name and password');
     }
 }

@@ -14,7 +14,7 @@ Feature: Search successfully action
     And I press "Search"
     And I wait for "1" seconds
     Then I should be on "#q=wikipedia"
-    And I should see "Wikipediatest"
+    And I should see "Wikipedia - Wikipedia, the free encyclopedia"
 
   @javascript
   Scenario: search successfully (high level scenario)
