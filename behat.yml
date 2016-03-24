@@ -4,8 +4,10 @@ default:
       goutte: ~
       base_url: http://www.google.com
       selenium2:
+#        wd_host: "http://ductrg:93fdf6af-f02b-44f3-9dde-ad0a2c560e40@ondemand.saucelabs.com:80/wd/hub"
+        wd_host: "http://ondemand.saucelabs.com:80/wd/hub"
         browser: chrome
-        capabilities: {"browserName": "chrome", "browser": "chrome"}
+        capabilities: {"browserName": "chrome", "browser": "chrome", "version": "49.0", "platform": "Windows 7"}
   gherkin:
     filters:
       tags: ~@wip
@@ -36,7 +38,7 @@ firefox:
     Behat\MinkExtension:
       selenium2:
         browser: firefox
-        capabilities: {"browserName": "firefox", "browser": "firefox"}
+        capabilities: {"browserName": "firefox", "browser": "firefox", "version": "45.0", "platform": "Windows 7"}
 IE:
   extensions:
     Behat\MinkExtension:
