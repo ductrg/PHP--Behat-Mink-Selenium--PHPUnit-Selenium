@@ -20,17 +20,22 @@
         <parallel>
             <antcall target="default"></antcall>
             <antcall target="firefox"></antcall>
+            <antcall target="ie"></antcall>
         </parallel>
         <loadfile property="chrome" srcfile="${basedir}/chrome.log"/>
         <loadfile property="firefox" srcfile="${basedir}/firefox.log"/>
+        <loadfile property="ie" srcfile="${basedir}/ie.log"/>
         <echo>
----------------------------
-        Running on chrome:
+------------------------------
+        Running on chrome 49:
 ${chrome}
----------------------------
-        Running on firefox:
+------------------------------
+        Running on firefox 45:
 ${firefox}
----------------------------
+------------------------------
+        Running on IE 11:
+${ie}
+------------------------------
         </echo>
     </target>
 
@@ -42,6 +47,11 @@ ${firefox}
         <exec executable="${behat}" taskname="behat" output="firefox.log">
             <arg line="-p firefox"/>
             <!--<arg line= "-f html &#45;&#45;out report/firefox.html -p firefox"/>-->
+        </exec>
+    </target>
+    <target name="ie">
+        <exec executable="${behat}" taskname="behat" output="ie.log">
+            <arg line="-p IE"/>
         </exec>
     </target>
 
