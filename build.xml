@@ -21,10 +21,12 @@
             <antcall target="default"></antcall>
             <antcall target="firefox"></antcall>
             <antcall target="ie"></antcall>
+            <antcall target="safari"></antcall>
         </parallel>
         <loadfile property="chrome" srcfile="${basedir}/chrome.log"/>
         <loadfile property="firefox" srcfile="${basedir}/firefox.log"/>
         <loadfile property="ie" srcfile="${basedir}/ie.log"/>
+        <loadfile property="safari" srcfile="${basedir}/safari.log"/>
         <echo>
 ------------------------------
         Running on chrome 49:
@@ -35,6 +37,9 @@ ${firefox}
 ------------------------------
         Running on IE 11:
 ${ie}
+------------------------------
+        Running on Safari 9:
+${safari}
 ------------------------------
         </echo>
     </target>
@@ -54,7 +59,11 @@ ${ie}
             <arg line="-p IE"/>
         </exec>
     </target>
-
+    <target name="safari">
+        <exec executable="${behat}" taskname="behat" output="safari.log">
+            <arg line="-p safari"/>
+        </exec>
+    </target>
     <!--<target name="vendors" description="Update vendors">-->
     <!--<exec executable="php" failonerror="true">-->
     <!--<arg value="composer.phar" />-->
