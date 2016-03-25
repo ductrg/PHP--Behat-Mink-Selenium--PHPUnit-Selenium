@@ -44,4 +44,4 @@ IE:
     Behat\MinkExtension:
       selenium2:
         browser: internet explorer
-        capabilities: {"browserName": "internet explorer", "browser": "internet explorer"}
+        capabilities: {"browserName": "internet explorer", "browser": "internet explorer", "version": "11.0", "platform": "Windows 7"}
