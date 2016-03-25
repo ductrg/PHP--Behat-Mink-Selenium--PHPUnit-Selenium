@@ -34,3 +34,4 @@ script:
 - bin/phpunit -c phpunit-conf
 - bin/behat
 - bin/behat -p firefox
+- bin/behat -c b-local.yml
