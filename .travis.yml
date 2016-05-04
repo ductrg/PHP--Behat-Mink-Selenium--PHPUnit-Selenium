@@ -30,8 +30,8 @@ before_script:
 - bin/behat --init
 
 script:
-- ant -logger org.apache.tools.ant.listener.AnsiColorLogger full-build
-- bin/phpunit -c phpunit-conf
+#- ant -logger org.apache.tools.ant.listener.AnsiColorLogger full-build
+#- bin/phpunit -c phpunit-conf
 - bin/behat
 - bin/behat -p firefox
 - bin/behat -c b-local.yml
