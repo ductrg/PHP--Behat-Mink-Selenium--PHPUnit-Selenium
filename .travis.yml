@@ -1,3 +1,4 @@
+dist: trusty
 language: php
 php:
 - 5.5
@@ -8,7 +9,7 @@ before_install:
 - sudo apt-get install -y libappindicator1 fonts-liberation
 - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 - sudo dpkg -i google-chrome*.deb
-- sudo apt-get install firefox
+- sudo apt-get install -y firefox
 - google-chrome --product-version
 - firefox -v
 
@@ -16,14 +17,22 @@ branches:
   only:
     - master
     - phpu-sample
+addons:
+  sauce_connect:
+    username: "ductrg"
+    access_key:
+      secure: "sssNGwijUBfKKTp8tJY0yaSnBmNA4hZl3mxrmhwOT3fU1lED63ecIc/bk1loZxxztb2qeXm7IU2Vy2aByjgrEvQ8wdzZNR6jtZYVmETQRb3gkfoIglrKws3iiEgxN5BzPUaKYUSJUbh647iiORC10eqwfIU6tKfx3Pve9xzihix3YiRAdcn1dh+2PwGCc3+ClN2jpai+kVm+KuZ/4GaAqqV9qm5yErWig5fujGpXWQ3qfRr9cj7n7/TxT5msDO5LOvBl8d5Ex+Svtc8vacAVyIawvVgAprKH1C30+DVCSCTH7cL9Ohq3+nTQzNo9RtvV6MIkg81Ct5TlisAs0j7Pc3Vs7YyzbEpWKFyH792zVvt4WNuheclk9MHQf4Ktj7KSBizXo8hBo6L+AUOCJZwK3a3mQB/kPf68NppHRMSGdgd73sDPImrI+5QCyOiM4RFuVTJW3Vpf0SmjsKMmJtEPvb8KyTWth+x9jCMUejNFr6gJBXen85KL8uvQIA3YpV4sNGvLCJRfUwjj1aYsMe/rghf1vQQTd1FirvkaiDRNDOw0EXJsx2LKQi+aiZ+2bSsSPA0WJXw7yHHd1LU5iCtnUAlAwPBfEZslIhG5Vzy3zSvNT0PJpJTgxSZzr7eeoUYBkweLD97c4QRtjI7hevtgMN81XDFNzSTBFcmCdHNemNo="
 
 before_script:
+- sed -i "s/SAUCE_USERNAME/$SAUCE_USERNAME/g" behat.yml
+- sed -i "s/SAUCE_ACCESS_KEY/$SAUCE_ACCESS_KEY/g" behat.yml
 - composer install
 - sh start-sele.sh
 - bin/behat --init
 
 script:
-- bin/phpunit -c phpunit-conf
-- ant behat
+#- ant -logger org.apache.tools.ant.listener.AnsiColorLogger full-build
+#- bin/phpunit -c phpunit-conf
 - bin/behat
 - bin/behat -p firefox
+- bin/behat -c b-local.yml

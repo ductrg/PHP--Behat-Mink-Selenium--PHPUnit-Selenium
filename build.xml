@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="test-system" default="full-build">
-    <!-- By default, we assume all tools to be on the $PATH -->
-    <property name="workspace" value="${basedir}"/>
-    <property name="sourcedir" value="${basedir}/src"/>
-    <property name="builddir" value="${workspace}/app/build"/>
-    <property name="bin" value="${workspace}/bin"/>
-
+    <property name="bin" value="${basedir}/bin"/>
     <property name="phpunit" value="${bin}/phpunit"/>
     <property name="behat" value="${bin}/behat"/>
 
@@ -14,7 +9,7 @@
             description="run both PHPUnit tests and Behat tests"/>
 
     <target name="phpunit">
-        <exec executable="${phpunit}" failonerror="true" taskname="phpunit">
+        <exec executable="${phpunit}" taskname="phpunit">
             <arg line="-c phpunit-conf"/>
         </exec>
     </target>
@@ -25,19 +20,50 @@
         <parallel>
             <antcall target="default"></antcall>
             <antcall target="firefox"></antcall>
+            <antcall target="ie"></antcall>
+            <antcall target="safari"></antcall>
         </parallel>
+        <loadfile property="chrome" srcfile="${basedir}/chrome.log"/>
+        <loadfile property="firefox" srcfile="${basedir}/firefox.log"/>
+        <loadfile property="ie" srcfile="${basedir}/ie.log"/>
+        <loadfile property="safari" srcfile="${basedir}/safari.log"/>
+        <echo>
+------------------------------
+        Running on chrome 49:
+${chrome}
+------------------------------
+        Running on firefox 45:
+${firefox}
+------------------------------
+        Running on IE 11:
+${ie}
+------------------------------
+        Running on Safari 9:
+${safari}
+------------------------------
+        </echo>
     </target>
+
     <target name="default">
-        <exec dir="${basedir}" executable="${behat}" failonerror="true" taskname="behat">
+        <exec executable="${behat}" taskname="behat" output="chrome.log">
         </exec>
     </target>
     <target name="firefox">
-        <exec dir="${basedir}" executable="${behat}" failonerror="true" taskname="behat">
+        <exec executable="${behat}" taskname="behat" output="firefox.log">
             <arg line="-p firefox"/>
             <!--<arg line= "-f html &#45;&#45;out report/firefox.html -p firefox"/>-->
         </exec>
     </target>
-
+    <target name="ie">
+        <exec executable="${behat}" taskname="behat" output="ie.log">
+            <arg line="-p IE"/>
+        </exec>
+    </target>
+    <target name="safari">
+        <exec executable="${behat}" taskname="behat" output="safari.log">
+            <arg line="-p safari"/>
+        </exec>
+    </target>
     <!--<target name="vendors" description="Update vendors">-->
     <!--<exec executable="php" failonerror="true">-->
     <!--<arg value="composer.phar" />-->
