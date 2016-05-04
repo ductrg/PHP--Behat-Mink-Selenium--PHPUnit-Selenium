@@ -1,1 +1,7 @@
-/SeleniumTests/TestCases/*.php merge=ours
+SeleniumTests/TestCases/AdminHomePage/VerifyLogOutSuccessfullyTest.php merge=ours
+SeleniumTests/TestCases/AuthenticationAdminHomeInput/AuthenticationPage.php merge=ours
+SeleniumTests/TestCases/AuthenticationAdminHomeInput/WelcomePage.php merge=ours
+SeleniumTests/TestCases/AuthenticationPage/VerifyLogInSuccessfullyTest.php merge=ours
+SeleniumTests/TestCases/AuthenticationPage/VerifyLogInUnsuccessfullyWithEmptyFieldsTest.php merge=ours
+SeleniumTests/TestCases/AuthenticationPage/VerifyLogInUnsuccessfullyWithWrongPassTest.php merge=ours
+SeleniumTests/TestCases/AuthenticationPage/VerifyLogInUnsuccessfullyWithWrongUsernameTest.php merge=ours
