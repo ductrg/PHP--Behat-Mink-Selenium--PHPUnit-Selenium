@@ -342,4 +342,14 @@ JS;
     {
         return str_replace('\\"', '"', $argument);
     }
+
+    /**
+     *  xpath
+     *
+     * @Then /^(?:|I )should see an? "(?P<element>[^"]*)" element xpath$/
+     */
+    public function assertElementXpathOnPage($element)
+    {
+        $this->assertSession()->elementExists('xpath', $element);
+    }
 }
